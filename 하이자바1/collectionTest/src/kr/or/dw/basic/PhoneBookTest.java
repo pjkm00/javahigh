@@ -80,7 +80,7 @@ public class PhoneBookTest {
 				System.out.println(name + "의 전화번호가 등록되었습니다.");
 				break;
 			case 2:
-				System.out.println("수정할 전화번호의 이름을 입력하세요>>");
+				System.out.println("수정할 사람의 이름을 입력하세요>>");
 				name = sc.nextLine();
 				if(!phoneBookList.containsKey(name)) {
 					System.out.println(name + "이(가) 존재하지 않습니다.");
@@ -88,17 +88,22 @@ public class PhoneBookTest {
 				}
 				System.out.println("수정할 전화번호를 입력하세요>");
 				tel = sc.nextLine();
-				phoneBookList.get(name).tel = tel;
+				phoneBookList.get(name).setTel(tel);
 				System.out.println(name + "의 전화번호가 수정되었습니다.");
 				break;
 			case 3:
-				System.out.println("삭제할 전화번호의 이름을 입력하세요>>");
+				System.out.println("삭제할 사람의 이름을 입력하세요>>");
 				name = sc.nextLine();
+				if(!phoneBookList.containsKey(name)) {
+					System.out.println(name + "이(가) 존재하지 않습니다.");
+					break;
+				}
 				System.out.println("정말로 삭제하시겠습니까?  1. 예\t2. 아니오");
 				int input2 = Integer.parseInt(sc.nextLine());
 				switch(input2) {
 				case 1:
 					phoneBookList.remove(name);
+					System.out.println("삭제가 완료되었습니다.");
 					break;
 				case 2:
 					break;
