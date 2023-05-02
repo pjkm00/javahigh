@@ -16,12 +16,13 @@ public class ThreadTest07 {
 	 * 5초안에 입력이 완료되면 승패를 구해서 출력한다.
 	 * 결과예시)
 	 * -- 결     과 --
-	 * 컴퓨터 : 가위
+	 * 컴퓨터 :
+	 *  가위
 	 * 사용자 : 바위
 	 * 	<승!!>
 	 */
 	public static InputRSP RSP = new InputRSP();
-	
+
 	public static void main(String[] args) {
 		
 		CountInput ci = new CountInput();
