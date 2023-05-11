@@ -16,5 +16,7 @@
 	
 	
 	</form>
+	<hr>
+	<a href="<%=request.getContextPath()%>/UploadFileListServlet.do">업로드된 전체 파일 보기</a>
 </body>
 </html>
