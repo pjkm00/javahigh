@@ -1,7 +1,6 @@
 package middle.read;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,14 +16,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-@WebServlet("/LoginServlet.do")
-public class LoginServlet extends HttpServlet{
+@WebServlet("/LectureInfoServlet.do")
+public class LectureInfoServlet extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		doPost(req, res);
+		
 	}
 
 	@Override
@@ -32,48 +30,39 @@ public class LoginServlet extends HttpServlet{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
-		String id = req.getParameter("id");
-		String pwd = req.getParameter("pwd");
-		
-		HttpSession session = req.getSession();
-		res.setCharacterEncoding("UTF-8");
+		Scanner sc = new Scanner(System.in);
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "민경", "java");
 			
-			String sql = "select * from students where stuId = ?";
+			int inputempno = Integer.parseInt(sc.nextLine());
+			
+			String sql = "select * from ? where lecyear = ?";
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, Integer.parseInt(id));
+			pstmt.setString(1, "lecture" + req.getParameter("stuID"));
+			pstmt.setInt(2, Integer.parseInt(req.getParameter("lecyear")));
 			
 			//SQL문의 물음표(?)자리에 들어갈 데이터를 세팅한다.
 			//형식) pstmt.set자료형이름(물음표순번, 데이터)
 			rs = pstmt.executeQuery();
 			
-			if(id != null && pwd != null) {
-				if(Integer.parseInt(id) == rs.getInt("stuId") && pwd.equals(rs.getString("stuPass"))) {
-					session.setAttribute("stuId", id);
-					String view = "/lecture/LectureMain.jsp";
-					RequestDispatcher rd = req.getRequestDispatcher(view);
-					rd.forward(req, res);
-					
-				}else {
-					res.setContentType("text/html; charset=utf-8");
-					PrintWriter out = res.getWriter();
-					out.println("<script>alert('아이디나 비밀번호가 틀렸습니다.')</script>");
-					String view = "/lecture/login.jsp";
-					RequestDispatcher rd = req.getRequestDispatcher(view);
-					rd.forward(req, res);
-				}
+			List<LectureList> lectureList = new ArrayList<>(); 
+			while(rs.next()) {
+				LectureList lecture = new LectureList(rs.getInt("lecno"), rs.getString("lecname"), rs.getString("lecprofessor"), 
+						rs.getString("lecloc"), rs.getInt("lecscore"), rs.getInt("leccredit"), rs.getString("lecdiv"), rs.getInt("lecyear"));
 				
+				lectureList.add(lecture);
 			}
 			
-	
+			req.setAttribute("lectureList", lectureList);
 			
+			String view = "/lecture/lectureList.jsp";
+			RequestDispatcher rd = req.getRequestDispatcher(view);
+			rd.forward(req, res);
 			
 			
 		} catch (ClassNotFoundException e) {
@@ -85,10 +74,6 @@ public class LoginServlet extends HttpServlet{
 			if(pstmt != null) try {pstmt.close();} catch(SQLException e2) {}
 			if(rs != null) try {rs.close();} catch(SQLException e2) {}
 		}
-		
-		
-		
-		
 	}
 	
 }

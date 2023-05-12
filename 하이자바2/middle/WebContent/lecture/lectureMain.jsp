@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h2>수강한 강의 조회</h2>
+	<a href="<%=request.getContextPath()%>/LectureInfoServlet.do">강의조회</a>
 </body>
 </html>

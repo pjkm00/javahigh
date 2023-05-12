@@ -8,9 +8,10 @@
 </head>
 <body>
 	<%
+
 	
 	
 	%>
-	<a href="<%=request.getContextPath()%>/OutPrint.do">쿼츠</a>
+	<a href="<%=request.getContextPath()%>/OPServlet.do">쿼츠</a>
 </body>
 </html>

@@ -13,9 +13,9 @@ import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 
-public class QuartzMethod {
-	
-	public void quartz(HttpServletRequest req, HttpServletResponse res) throws SchedulerException{
+public class MainClass {
+
+	public void mainclass(HttpServletRequest req, HttpServletResponse res) throws SchedulerException {
 		MyObj mo = new MyObj();
 		mo.setReq(req);
 		mo.setRes(res);

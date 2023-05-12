@@ -23,7 +23,7 @@ public class OutPrint extends HttpServlet{
 		out.println("<html><meta charset='utf-8'><head><title>쿼츠</title></head>");
 		out.println("<body>");
 		out.println("<h2>쿼츠 테스트</h2>");
-		out.println("현재 시각은" + new Date() + "입니다");
+		out.println("<script>alert('안녕')</script>");
 		out.println("</body></html>");
 		
 		

@@ -17,9 +17,26 @@ public class MyObj implements Job{
 	HttpServletRequest req = null;
 	HttpServletResponse res = null;
 	
+	public HttpServletRequest getReq() {
+		return req;
+	}
+
+	public void setReq(HttpServletRequest req) {
+		this.req = req;
+	}
+
+	public HttpServletResponse getRes() {
+		return res;
+	}
+
+	public void setRes(HttpServletResponse res) {
+		this.res = res;
+	}
+
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		OutPrint op = new OutPrint();
+		
 		try {
 			op.doGet(req, res);
 		} catch (ServletException e) {

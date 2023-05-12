@@ -1,6 +1,7 @@
-package scheduler.sumit.project;
+package kr.or.dw.basic.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,23 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.quartz.SchedulerException;
-
-@WebServlet("/QuartzServlet.do")
-public class QuartzServlet extends HttpServlet{
+@WebServlet("/FilterEncodingTestServlet.do")
+public class FilterEncodingTestServlet extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		res.setCharacterEncoding("UTF-8");
-		res.setContentType("text/html; charset=utf-8");
 		
-		QuartzMethod qm = new QuartzMethod();
-		try {
-			qm.quartz(req, res);
-		} catch (SchedulerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String name = req.getParameter("userName");
+		
+		System.out.println("name : " + name);
+		
+		res.setContentType("text/html; charset=utf-8");
+		PrintWriter out = res.getWriter();
+		
+		out.println("<html><head><meta charset='utf-8'></head><body>");
+		out.println("<h1>당신의 이름은 " + name + "이군요</h1>");
+		out.println("</body></html>");
 	}
 
 	@Override
