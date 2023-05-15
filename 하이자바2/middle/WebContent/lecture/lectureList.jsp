@@ -25,16 +25,16 @@
 			<th>학점</th>
 		</tr>
 		
-		<%= for(LectureList l : List){%>
-		<tr>
-			<td><%=l.getLecno()%></td>
-			<td><%=l.getLecname()%></td>
-			<td><%=l.getLecprofessor()%></td>
-			<td><%=l.getLecloc()%></td>
-			<td><%=l.getLecdiv()%></td>
-			<td><%=l.getLeccredit()%></td>
-		</tr>	
-		<%}%>
+<%-- 		<%= for(LectureList l : List){%> --%>
+<!-- 		<tr> -->
+<%-- 			<td><%=l.getLecno()%></td> --%>
+<%-- 			<td><%=l.getLecname()%></td> --%>
+<%-- 			<td><%=l.getLecprofessor()%></td> --%>
+<%-- 			<td><%=l.getLecloc()%></td> --%>
+<%-- 			<td><%=l.getLecdiv()%></td> --%>
+<%-- 			<td><%=l.getLeccredit()%></td> --%>
+<!-- 		</tr>	 -->
+<%-- 		<%}%> --%>
 		
 	
 	</table>
