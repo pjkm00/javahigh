@@ -2,6 +2,7 @@
     <wb-module deploy-name="middle">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/res"/>
         <property name="context-root" value="middle"/>
         <property name="java-output-path" value="/middle/build/classes"/>
     </wb-module>

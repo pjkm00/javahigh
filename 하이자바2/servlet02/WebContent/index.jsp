@@ -9,4 +9,7 @@
 <body>
 	<h2>메인 페이지입니다.</h2>
 </body>
+<script>
+	location.href="<%=request.getContextPath()%>/member/memberList.do";	
+</script>
 </html>

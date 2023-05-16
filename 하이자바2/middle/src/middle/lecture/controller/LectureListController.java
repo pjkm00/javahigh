@@ -1,11 +1,9 @@
-package kr.or.dw.controller;
+package middle.lecture.controller;
 
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,8 +12,7 @@ import kr.or.dw.member.service.IMemberService;
 import kr.or.dw.member.service.MemberServiceImpl;
 import kr.or.dw.vo.MemberVO;
 
-public class TestController extends HttpServlet{
-
+public class LectureListController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setContentType("text/html; charset=utf-8");
@@ -37,24 +34,16 @@ public class TestController extends HttpServlet{
 			//반환할 uri 가 없으면 404에러 처리
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		}else if("/member/memberList.do".equals(uri)) {
-			IMemberService memService = MemberServiceImpl.getInstance();
-			List<MemberVO> memList = memService.getAllMember();
+			ILectureService lecService = LectureServiceImpl.getInstance();
+			List<LectureVO> memList = lecService.getAllMember();
 		
-			req.setAttribute("memList", memList);
-			view = "/member/memberList.jsp";
-		}else if("/member/insertMember.do".equals(uri)){
-			IMemberService memService = MemberServiceImpl.getInstance();
-			
+			System.out.println(memList);
 		}
 		
-		//해당 view로 포워딩한다.
-		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/view" + view);
-		rd.forward(req, res);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doGet(req, res);
 	}
-	
 }
