@@ -9,4 +9,21 @@
 		  FROM mymember
 	</select>
 	
+	<select id="getMemberCount" parameterClass="String" resultClass="int">
+		SELECT COUNT(*)
+		FROM mymember
+		WHERE mem_id = #mem_id#
+	</select>
+	
+	<insert id="insertMember" parameterClass="memVO">
+		INSERT INTO mymember (mem_id, mem_name, mem_tel, mem_addr)
+		VALUES (#mem_id#, #mem_name#, #mem_tel#, #mem_addr#)
+	</insert>
+	
+	<select id="getMember" parameterClass="String" resultClass="memVO">
+		SELECT *
+		FROM mymember
+		WHERE mem_id = #mem_id#	
+	</select>
+	
 </sqlMap>
