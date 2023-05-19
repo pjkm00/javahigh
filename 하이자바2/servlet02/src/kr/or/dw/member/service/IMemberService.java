@@ -38,4 +38,17 @@ public interface IMemberService {
 	 */
 	public MemberVO getMember(String mem_id);
 
+	/**
+	 * 회원의 상세정보를 수정하는 메서드
+	 * @param memVo(회원객체)
+	 */
+	public int updateMember(MemberVO memVo);
+
+	/**
+	 * 회원 삭제 메서드
+	 * @param id(회원ID)
+	 * @return 결과
+	 */
+	public int deleteMember(String id);
+
 }

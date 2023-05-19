@@ -42,6 +42,17 @@ public class MemberServiceImpl implements IMemberService{
 	public MemberVO getMember(String mem_id) {
 		return dao.getMember(mem_id);
 	}
+
+	@Override
+	public int updateMember(MemberVO memVo) {
+		return dao.updateMember(memVo);
+		
+	}
+
+	@Override
+	public int deleteMember(String id) {
+		return dao.deleteMember(id);
+	}
 	
 
 }

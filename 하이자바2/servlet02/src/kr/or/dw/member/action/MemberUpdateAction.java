@@ -29,6 +29,11 @@ public class MemberUpdateAction implements IAction{
 		
 		MemberVO memVo = new MemberVO();
 		memVo.setMem_id(id);
+		memVo.setMem_name(name);
+		memVo.setMem_tel(tel);
+		memVo.setMem_addr(addr);
+		
+		service.updateMember(memVo);
 		
 		return "/member/memberList.do";
 	}

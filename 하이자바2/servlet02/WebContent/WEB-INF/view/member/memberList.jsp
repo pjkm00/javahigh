@@ -21,11 +21,18 @@
 	
 	<table border="1">
 		<thead>
+			<%
+				MemberVO memVo = (MemberVO) session.getAttribute("testUser"); 
+				if(memVo.getMem_auth().equals("A")){
+			%>	
 			<tr>
 				<td colspan="4">
 					<input type="button" id="addBtn" value="회원추가">  
 				</td>
 			</tr>	
+			<% }%>
+		
+				
 			<tr>
 				<th>ID</th>
 				<th>이름</th>
