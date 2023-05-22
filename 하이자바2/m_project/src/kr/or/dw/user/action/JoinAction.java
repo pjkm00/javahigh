@@ -17,6 +17,9 @@ public class JoinAction implements IAction{
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		
+		req.setAttribute("title_nm", "Join Page");
+		
 		return "/user/joinForm.jsp";
 	}
 
