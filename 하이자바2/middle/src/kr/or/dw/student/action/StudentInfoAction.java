@@ -1,4 +1,4 @@
-package kr.or.dw.lecture.action;
+package kr.or.dw.student.action;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,27 +8,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import kr.or.dw.lecture.service.ILectureService;
-import kr.or.dw.lecture.service.LectureServiceImpl;
-import kr.or.dw.vo.LectureVO;
+import kr.or.dw.student.service.IStudentService;
+import kr.or.dw.student.service.StudentServiceImpl;
+import kr.or.dw.vo.StudentVO;
 import kr.or.dw.web.IAction;
 
-public class GradeViewAction implements IAction{
+public class StudentInfoAction implements IAction{
 
 	@Override
 	public boolean isRedirect() {
-		
 		return false;
 	}
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		ILectureService service = LectureServiceImpl.getInstance();
+		IStudentService service = StudentServiceImpl.getInstance();
 		HttpSession session = req.getSession();
-		String stu_id = (String) session.getAttribute("stu_id");
-//		List<LectureVO> gradeList = service.getGrade(stu_id);
 		
-		return "/student/lecture/gradeView.jsp";
+		String stu_id = (String) session.getAttribute("stu_id");
+		
+		
+		StudentVO stuInfo = (StudentVO) service.getAllStudentInfo(stu_id);
+		
+		
+		req.setAttribute("stuInfo", stuInfo);
+		
+		return "/student/mymenu/myMenu.jsp";
 	}
 
 }

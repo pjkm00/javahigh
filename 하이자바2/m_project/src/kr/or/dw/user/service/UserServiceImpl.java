@@ -34,5 +34,11 @@ public class UserServiceImpl implements IUserService{
 	public UserVO loginUser(String email) {
 		return dao.loginUser(email);
 	}
+
+	@Override
+	public void updateUserPicPath(UserVO vo) {
+		 dao.updateUserPicPath(vo);
+		
+	}
 	
 }

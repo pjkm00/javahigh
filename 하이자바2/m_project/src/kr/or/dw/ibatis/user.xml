@@ -23,4 +23,8 @@
 		FROM t_user
 		WHERE email = #email#
 	</select>
+	
+	<update id="updateUserPicPath" parameterClass="userVO">
+		UPDATE t_user SET pic_path = #pic_path# WHERE user_no = #user_no#
+	</update>
 </sqlMap>

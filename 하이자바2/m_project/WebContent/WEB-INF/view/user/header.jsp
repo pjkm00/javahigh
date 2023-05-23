@@ -1,3 +1,4 @@
+<%@page import="kr.or.dw.user.vo.UserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,6 +19,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Theme style -->
   <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/dist/css/adminlte.min.css">
   <script type="text/javascript" src="<%=request.getContextPath()%>/assets/plugins/jquery/jquery.js"></script>
+  
+  <script type="text/javascript">
+	  $(function(){
+		  <%
+		  	UserVO vo = (UserVO) session.getAttribute("userVO");
+		  
+		  	if(vo != null){
+		  %>
+		  		$('#loginCheck').text('Log Out');
+		  		$('#loginCheck').attr('href', '<%=request.getContextPath()%>/user/userLogout.do');
+		  		$('#signUp').find('p').text('Profile');
+		  		$('#signUp').find('i').attr('class', 'nav-icon fas fa-solid fa-id-card');
+		  		$('#signUp').attr('href', '<%=request.getContextPath()%>/user/myPage.do');
+		  <%
+		  	}
+		  %> 
+			
+	  })
+  	 
+  </script>
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -36,7 +58,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a href="#" class="nav-link">Contact</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<%=request.getContextPath() %>/user/userLoginForm.do" class="nav-link">Log In</a>
+        <a href="<%=request.getContextPath() %>/user/userLoginForm.do" class="nav-link" id="loginCheck">Log In</a>
       </li>
     </ul>
 
@@ -176,10 +198,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="<%=request.getContextPath()%>/assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        
+        <% 
+        	String src = "/profilePath/default/defaultprofile.png";
+        	String nick = "Guest";
+       		if(vo != null){
+       			src = "/profilePath/" + vo.getPic_path();
+       			nick = vo.getNick();
+       		}
+        %>
+        
+          <img src="<%=src%>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block"><%=nick%></a>
         </div>
       </div>
 
@@ -233,7 +265,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item">
-            <a href="<%=request.getContextPath() %>/user/joinForm.do" class="nav-link">
+            <a href="<%=request.getContextPath() %>/user/joinForm.do" class="nav-link" id="signUp">
               <i class="nav-icon fas fa-solid fa-user-plus"></i>
               <p>
                 Sign Up

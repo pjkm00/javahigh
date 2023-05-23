@@ -10,7 +10,14 @@ public class UserVO {
 	private String name;
 	private String bir;
 	private String gender;
+	private String pic_path;
 	
+	public String getPic_path() {
+		return pic_path;
+	}
+	public void setPic_path(String pic_path) {
+		this.pic_path = pic_path;
+	}
 	public int getUser_no() {
 		return user_no;
 	}

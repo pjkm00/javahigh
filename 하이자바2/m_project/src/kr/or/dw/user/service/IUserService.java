@@ -19,4 +19,10 @@ public interface IUserService {
 	 * @return 
 	 */
 	public UserVO loginUser(String email);
+
+	/**
+	 * 회원의 프로필 사진 경로를 수정하는 메서드
+	 * @param vo (회원 객체)
+	 */
+	public void updateUserPicPath(UserVO vo);
 }
