@@ -36,6 +36,11 @@ public class BoardServiceImpl implements IBoardService{
 		return dao.selectBoardCount();
 	}
 
+	@Override
+	public int insertContent(BoardVO boardVo) {
+		return dao.insertContent(boardVo);
+	}
+
 
 		
 }

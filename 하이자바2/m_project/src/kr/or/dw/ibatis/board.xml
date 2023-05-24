@@ -27,5 +27,37 @@
 		FROM t_board
 		WHERE gb_del = 'N'
 	</select>
+	
+	<insert id="insertContent" parameterClass="boardVO" >
+		<selectKey keyProperty="bd_no" resultClass="int">
+			SELECT t_board_seq.nextval bd_no FROM dual
+		</selectKey>
+		
+		INSERT INTO 
+			t_board (
+						bd_no
+					   ,bd_title
+					   ,bd_content
+					   ,bd_wdt
+					   ,bd_hit
+					   ,bd_like
+					   ,user_no
+					   ,gb_del
+					   ,nick
+				
+					)
+			VALUES (
+						#bd_no#
+					   ,#bd_title#
+					   ,#bd_content#
+					   ,sysdate
+					   ,0
+					   ,0
+					   ,#user_no#
+					   ,'N'
+					   ,#nick#
+					)
+			
+	</insert>
 
 </sqlMap>

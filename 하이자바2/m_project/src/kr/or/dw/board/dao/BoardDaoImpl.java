@@ -54,6 +54,17 @@ public class BoardDaoImpl implements IBoardDao{
 		return totalCount;
 	}
 
+	@Override
+	public int insertContent(BoardVO boardVo) {
+		int bd_no = 0;
+		try {
+			bd_no = (int) client.insert("board.insertContent", boardVo);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 
 
 }

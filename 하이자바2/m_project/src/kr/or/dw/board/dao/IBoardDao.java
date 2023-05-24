@@ -19,5 +19,7 @@ public interface IBoardDao {
 	 * @return 전체 레코드 수
 	 */
 	public int selectBoardCount();
+
+	public int insertContent(BoardVO boardVo);
 	
 }

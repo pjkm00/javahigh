@@ -20,4 +20,6 @@ public interface IBoardService {
 	 */
 	public int SelectBoardCount();
 
+	public int insertContent(BoardVO boardVo);
+
 }

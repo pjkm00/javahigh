@@ -16,19 +16,36 @@
 <div class="content">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
 				<div class="card">
 					<div class="card-header">
 						<h3 class="card-title">게시판</h3>
 						<div class="card-tools">
-							<button type="button" class="btn btn-tool"
-								data-card-widget="collapse" title="Collapse">
-								<i class="fas fa-minus"></i>
-							</button>
-							<button type="button" class="btn btn-tool"
-								data-card-widget="remove" title="Remove">
-								<i class="fas fa-times"></i>
-							</button>
+							<div class="input-group input-group-sm">
+								<%
+									if(vo != null){
+								%>	
+								<a class="btn btn-primary btn-sm" href="<%=request.getContextPath()%>/board/boardInsert.do">글작성</a> 
+										
+								<%
+									}
+								%>	
+								<input type="text" class="form-control" placeholder="Search Title">
+								<div class="input-group-append">
+									<div class="btn btn-primary">
+										<i class="fas fa-search"></i>
+									</div>
+								</div>
+							</div>
+<!-- 							<button type="button" class="btn btn-tool" -->
+<!-- 								data-card-widget="collapse" title="Collapse"> -->
+<!-- 								<i class="fas fa-minus"></i> -->
+<!-- 							</button> -->
+<!-- 							<button type="button" class="btn btn-tool" -->
+<!-- 								data-card-widget="remove" title="Remove"> -->
+<!-- 								<i class="fas fa-times"></i> -->
+<!-- 							</button> -->
 						</div>
 					</div>
 					<div class="card-body p-0">
@@ -36,11 +53,11 @@
 							<thead>
 								<tr>
 									<th style="width: 10%">글번호</th>
-									<th style="width: 40%">제목</th>
+									<th>제목</th>
 									<th style="width: 20%">작성자</th>
-									<th style="width: 10%">조회수</th>
-									<th style="width: 10%">공감수</th>
-									<th style="width: 10%">작성일</th>
+									<th style="width: 7%">조회수</th>
+									<th style="width: 7%">공감수</th>
+									<th style="width: 16%">작성일</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -95,6 +112,7 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-md-2"></div>
 		</div>
 	</div>
 </div>
