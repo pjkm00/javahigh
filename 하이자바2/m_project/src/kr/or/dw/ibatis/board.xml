@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="board">
+
+	<select id="selectBoardList" parameterClass="Map" resultClass="boardVO">
+		SELECT bd_no, bd_title, bd_content, bd_wdt, bd_hit, bd_like, b.nick, pic_path
+		FROM (
+				SELECT *
+				FROM (
+					  SELECT rownum rnum, v1.*
+					  FROM (
+							SELECT *
+							FROM t_board
+					  		ORDER BY bd_no DESC
+					  		) v1
+					  WHERE rownum <![CDATA[ <= ]]> #end#
+					  ) v2
+				WHERE v2.rnum <![CDATA[ >= ]]> #start#
+			) b, t_user u
+		WHERE b.user_no = u.user_no AND b.gb_del = 'N'
+	</select>
+	
+	<select id="selectBoardCount" resultClass="int">
+		SELECT COUNT(*) cnt
+		FROM t_board
+		WHERE gb_del = 'N'
+	</select>
+
+</sqlMap>
