@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.or.dw.board.service.BoardServiceImpl;
+import kr.or.dw.board.service.IBoardService;
 import kr.or.dw.board.vo.BoardVO;
 import kr.or.dw.user.vo.UserVO;
 import kr.or.dw.web.IAction;
@@ -32,6 +34,10 @@ public class ContentInsertAction implements IAction{
 		boardVo.setBd_content(content);
 		boardVo.setUser_no(userVo.getUser_no());
 		boardVo.setNick(userVo.getNick());
+		
+		IBoardService service = BoardServiceImpl.getInstance();
+		int bd_no = 0;
+		bd_no = service.insertContent(boardVo);
 		
 		
 		return null;
