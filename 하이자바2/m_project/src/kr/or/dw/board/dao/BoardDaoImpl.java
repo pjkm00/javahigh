@@ -1,6 +1,7 @@
 package kr.or.dw.board.dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -129,6 +130,21 @@ public class BoardDaoImpl implements IBoardDao{
 		}
 		
 		return replyVo;
+	}
+
+	@Override
+	public List<ReplyVO> selectReplyList(int bd_no) {
+		List<ReplyVO> replyList = null;
+		
+		try {
+			replyList = client.queryForList("board.selectReplyList", bd_no);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return replyList;
 	}
 
 

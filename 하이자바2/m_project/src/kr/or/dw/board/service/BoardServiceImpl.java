@@ -67,6 +67,11 @@ public class BoardServiceImpl implements IBoardService{
 		return dao.selectReply(re_no);
 	}
 
+	@Override
+	public List<ReplyVO> selectReplyList(int bd_no) {
+		return dao.selectReplyList(bd_no);
+	}
+
 
 		
 }

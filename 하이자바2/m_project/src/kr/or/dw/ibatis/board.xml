@@ -100,5 +100,13 @@
 		AND re_no = #re_no# 
 	</select>
 	
+	<select id="selectReplyList" parameterClass="int" resultClass="replyVO">
+		SELECT re_no, bd_no, re_content, re_wdt, r.user_no, r.nick, pic_path
+		FROM t_board_re r, t_user u
+		WHERE r.user_no = u.user_no
+		AND r.gb_del = 'N'
+		AND bd_no = #bd_no#
+		ORDER BY re_no DESC
+	</select>
 	
 </sqlMap>

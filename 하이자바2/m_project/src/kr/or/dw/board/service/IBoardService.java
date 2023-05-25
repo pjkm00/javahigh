@@ -63,4 +63,11 @@ public interface IBoardService {
 	 */
 	public ReplyVO selectReply(int re_no);
 
+	/**
+	 * 해당 게시글의 댓글 리스트 가져오기
+	 * @param bd_no(게시글 번호)
+	 * @return 댓글 리스트
+	 */
+	public List<ReplyVO> selectReplyList(int bd_no);
+
 }

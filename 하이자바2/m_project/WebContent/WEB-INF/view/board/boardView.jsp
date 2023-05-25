@@ -1,3 +1,5 @@
+<%@page import="kr.or.dw.board.vo.ReplyVO"%>
+<%@page import="java.util.List"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="kr.or.dw.board.vo.BoardVO"%>
@@ -7,22 +9,28 @@
 
 <%
 	BoardVO boardVo = (BoardVO) request.getAttribute("boardVo");
-DateFormat fomatter = new SimpleDateFormat("yyyy-MM-dd");
+	List<ReplyVO> replyList = (List<ReplyVO>)request.getAttribute("replyList");
 
-if (boardVo.getPic_path() != null) {
+	DateFormat fomatter = new SimpleDateFormat("yyyy-MM-dd");
+
+	if (boardVo.getPic_path() != null) {
 	src = "/profilePath/" + boardVo.getPic_path();
-}
+	}
 %>
 
 <script>
 	$(function(){
 		
 		function replyTemplate(reply){
+			let replySrc = "/profilePath/default/defaultprofile.png";
+			if(reply.pic_path != null || reply.pic_path != ""){
+				replySrc = "/profilePath/" + reply.pic_path
+			}
 			$('#re_container').prepend(
 				'<div class="row">'
 				+	'<div class="col-md-4">'
 				+		'<div class="user-block">'
-				+			'<img class="img-circle img-bordered-sm" src="/profilePath/' + reply.pic_path + '" alt="user image">' 
+				+			'<img class="img-circle img-bordered-sm" src="' + replySrc + '" alt="user image">' 
 				+			'<span class="username">'
 				+			'<a href="#">' + reply.nick + '</a>'
 				+			'<a href="#" class="float-right btn-tool">'
@@ -33,7 +41,7 @@ if (boardVo.getPic_path() != null) {
 				+		'</div>'
 				+	'</div>'
 				+	'<div class="col-md-8">' + reply.re_content + '</div>'
-				+'</div>'		
+				+'</div><hr style="margin: 0">'		
 			);
 		};
 		
@@ -51,7 +59,7 @@ if (boardVo.getPic_path() != null) {
 			
 			$.ajax({
 				url : "<%=request.getContextPath()%>/board/reply.do",
-				dateType : "json",
+				dataType : "json",
 				method : "post",
 				data : {
 					"bd_no" : bd_no,
@@ -59,7 +67,7 @@ if (boardVo.getPic_path() != null) {
 				},
 				success : function(res){
 					console.log(res);
-// 					replyTemplate(res.reply);
+					replyTemplate(res.reply);
 					
 				},
 				error : function(){
@@ -130,26 +138,49 @@ if (boardVo.getPic_path() != null) {
 							</span>
 						</p>
 						<form id="re_form">
+						<%
+							if(vo != null){ 
+						%>
 							<input class="form-control form-control-sm" type="text" placeholder="댓글을 입력하세요.">
 							<button type="submit" style="display: none;"></button>
+						<%
+							}else{
+						%>
+							<input class="form-control form-control-sm" type="text" placeholder="회원만 입력 가능합니다." disabled>
+								
+						<%
+							}
+						%>
 						</form>
 					</div>
 				</div>
 				<div class="card" id="re_container">
+				<% 
+					
+					for(ReplyVO reply : replyList){
+						
+				%>
 					<div class="row">
 						<div class="col-md-4">
 							<div class="user-block">
-								<img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image"> 
-								<span class="username"> <a href="#">Jonathan Burke Jr.</a> 
+								<img class="img-circle img-bordered-sm" src="/profilePath/<%=reply.getPic_path() == null ? "/default/defaultprofile.png" : reply.getPic_path() %>" alt="user image"> 
+								<span class="username"> <a href="#"><%=reply.getNick() %></a> 
 									<a href="#" class="float-right btn-tool">
 										<i class="fas fa-times"></i>
 									</a>
 								</span> 
-								<span class="description">Shared publicly - 7:30 PM today</span>
+								<span class="description"><%=reply.getRe_wdt() %></span>
 							</div>
 						</div>
-						<div class="col-md-8">테스트 댓글</div>
+						<div class="col-md-8"><%=reply.getRe_content() %></div>
 					</div>
+					<hr style="margin: 0">
+						
+				<% 
+					}
+				
+				%>
+					
 				</div>
 			</div>
 			<div class="col-md-2"></div>
