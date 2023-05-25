@@ -79,7 +79,7 @@
 							<form id="upload_form" method="post" enctype="multipart/form-data">
 								<div class="text-center">
 									<a href="#" id="changeSelfie">
-										<img class="profile-user-img img-fluid img-circle" id="profile_picture" src="/profilePath/<%=vo.getPic_path()%>" alt="User profile picture">
+										<img class="profile-user-img img-fluid img-circle" id="profile_picture" src="<%=src%>" alt="User profile picture">
 									</a>
 									<input type="file" style="display : none;" name="selfie" id="selfie" accept=".jpg, .jpeg, .png">
 									<a href="#" class="btn btn-primary btn-block" id="saveProfileBtn" style="display : none"><b>프로필 사진 저장</b></a>

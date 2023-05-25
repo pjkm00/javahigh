@@ -11,25 +11,30 @@ import kr.or.dw.board.service.IBoardService;
 import kr.or.dw.board.vo.BoardVO;
 import kr.or.dw.web.IAction;
 
-public class BoardInsertAction implements IAction{
+public class BoardViewAction implements IAction{
 
 	@Override
 	public boolean isRedirect() {
-		
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setAttribute("title_nm", "Board Write");
-		if(req.getParameter("bd_no") != null) {
-			int bd_no = Integer.parseInt(req.getParameter("bd_no"));
-			IBoardService service = BoardServiceImpl.getInstance();
-			BoardVO boardVo = service.selectBoardView(bd_no);
-			req.setAttribute("boardVo", boardVo);
-		}
 		
-		return "/board/boardInsert.jsp";
+		int bd_no = 0;
+		bd_no = Integer.parseInt(req.getParameter("bd_no"));
+		
+		IBoardService boardService = BoardServiceImpl.getInstance();
+		BoardVO boardVo = null;
+		
+		
+		boardVo = boardService.selectBoardView(bd_no);
+		
+		req.setAttribute("boardVo", boardVo);
+		req.setAttribute("title_nm", "Board View");
+		
+		return "/board/boardView.jsp";
 	}
-
+	
 }

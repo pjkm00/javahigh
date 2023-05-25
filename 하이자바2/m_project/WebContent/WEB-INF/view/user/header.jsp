@@ -207,7 +207,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         	String src = "/profilePath/default/defaultprofile.png";
         	String nick = "Guest";
        		if(vo != null){
+       			if(vo.getPic_path() != null){
        			src = "/profilePath/" + vo.getPic_path();
+       			}
        			nick = vo.getNick();
        		}
         %>

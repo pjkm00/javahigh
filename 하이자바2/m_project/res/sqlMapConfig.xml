@@ -17,6 +17,7 @@
 		(형식) <typeAlias alias = "alias명" type = "클래스의 전체 이름"/> -->
 	<typeAlias alias = "userVO" type = "kr.or.dw.user.vo.UserVO" />
 	<typeAlias alias = "boardVO" type = "kr.or.dw.board.vo.BoardVO" />
+	<typeAlias alias = "replyVO" type = "kr.or.dw.board.vo.ReplyVO" />
 	
 	<!-- DB와 연결을 처리하는 부분 -->
 	<transactionManager type="JDBC">

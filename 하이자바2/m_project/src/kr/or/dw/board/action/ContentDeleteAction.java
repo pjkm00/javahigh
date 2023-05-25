@@ -8,28 +8,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.dw.board.service.BoardServiceImpl;
 import kr.or.dw.board.service.IBoardService;
-import kr.or.dw.board.vo.BoardVO;
 import kr.or.dw.web.IAction;
 
-public class BoardInsertAction implements IAction{
+public class ContentDeleteAction implements IAction{
 
 	@Override
 	public boolean isRedirect() {
-		
-		return false;
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setAttribute("title_nm", "Board Write");
-		if(req.getParameter("bd_no") != null) {
-			int bd_no = Integer.parseInt(req.getParameter("bd_no"));
-			IBoardService service = BoardServiceImpl.getInstance();
-			BoardVO boardVo = service.selectBoardView(bd_no);
-			req.setAttribute("boardVo", boardVo);
-		}
+		int bd_no = Integer.parseInt(req.getParameter("bd_no"));
+		int result = 0;
+		IBoardService service = BoardServiceImpl.getInstance();
+		result = service.deleteContent(bd_no);
 		
-		return "/board/boardInsert.jsp";
+		req.setAttribute("result", result);
+		
+		return "/board/deleteContentResult.do?result=" + result;
 	}
 
 }

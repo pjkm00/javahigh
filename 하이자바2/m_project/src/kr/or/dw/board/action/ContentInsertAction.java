@@ -17,7 +17,7 @@ public class ContentInsertAction implements IAction{
 
 	@Override
 	public boolean isRedirect() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -37,10 +37,18 @@ public class ContentInsertAction implements IAction{
 		
 		IBoardService service = BoardServiceImpl.getInstance();
 		int bd_no = 0;
-		bd_no = service.insertContent(boardVo);
 		
+		if(req.getParameter("bd_no") != null) {
+			//글 수정일 때 
+			bd_no = Integer.parseInt(req.getParameter("bd_no"));
+			boardVo.setBd_no(bd_no);
+			int result = service.updateContent(boardVo);
+		}else {
+			//글 등록 일 때
+			bd_no = service.insertContent(boardVo);
+		}
 		
-		return null;
+		return "/board/boardView.do?bd_no=" + bd_no;
 	}
 
 }
