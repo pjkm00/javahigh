@@ -30,7 +30,7 @@ public class ProfilePicture implements IAction{
 		int user_no = vo.getUser_no();
 		
 		String picFoldName = "" + user_no;
-		String realPath = "C:/upload/userProfile/" + picFoldName;
+		String realPath = "C:/upload/planFile/" + picFoldName;
 		
 		String fileName = "";
 		

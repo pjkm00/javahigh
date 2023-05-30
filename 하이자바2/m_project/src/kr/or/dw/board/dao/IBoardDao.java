@@ -69,5 +69,19 @@ public interface IBoardDao {
 	 * @return 댓글 리스트
 	 */
 	public List<ReplyVO> selectReplyList(int bd_no);
+
+	/**
+	 * 댓글 삭제 메서드
+	 * @param re_no (댓글번호)
+	 * @return 결과값
+	 */
+	public int deleteReply(int re_no);
+
+	/**
+	 * 댓글 수정 메서드
+	 * @param replyVo
+	 * @return
+	 */
+	public int updateReply(ReplyVO replyVo);
 	
 }

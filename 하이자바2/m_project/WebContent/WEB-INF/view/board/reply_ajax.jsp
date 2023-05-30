@@ -15,3 +15,13 @@
 <%
 	}
 %>
+
+<%
+	if(request.getAttribute("result") != null){
+%>
+{
+	"result" : <%=request.getAttribute("result")%>
+}		
+<%
+	}
+%>

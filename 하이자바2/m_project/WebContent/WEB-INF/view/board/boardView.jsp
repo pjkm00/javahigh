@@ -26,6 +26,13 @@
 			if(reply.pic_path != null || reply.pic_path != ""){
 				replySrc = "/profilePath/" + reply.pic_path
 			}
+			
+// 			let deleteBtn = '<i class="fas fa-times"></i>';
+			
+<%-- 			if("<%=vo.getNick()%>" != reply.nick){ --%>
+// 				deleteBtn = '';
+// 			}
+			
 			$('#re_container').prepend(
 				'<div class="row">'
 				+	'<div class="col-md-4">'
@@ -51,6 +58,22 @@
 				};
 		});
 		
+		function replyUpdateTemplate(target, update_re_no, update_re_content){
+			
+			$(target).after(
+				 '<form id="re_update_form">'
+				+	'<div class="form-group d-flex">'
+				+		'<input type="hidden" name="update_re_no" value="' + update_re_no + '">'
+				+		'<input type="text" name="update_re_content" value="' + update_re_content + '">'
+				+		'<a class="btn btn-default btn-sm" href="#">취소</a>'
+				+		'<input type="submit" hidden>'
+				+	'</div>'
+				+'</form>'
+			)
+		}
+			
+		
+		//댓글등록
 		$('#re_form').on('submit', function(e){
 			e.preventDefault();
 			
@@ -62,8 +85,9 @@
 				dataType : "json",
 				method : "post",
 				data : {
-					"bd_no" : bd_no,
-					"re_content" : re_content
+					cmd : "insert",
+					bd_no : bd_no,
+					re_content : re_content
 				},
 				success : function(res){
 					console.log(res);
@@ -75,6 +99,77 @@
 				}
 			});
 		});
+		
+		//댓글수정
+		$(document).on('click', '.reply-update-btn', function(e){
+			let target = $(this).closest('div .row').find('.reply-update');
+			let updateReplyNo = $(this).parents('.icon-block').find('input[type=hidden]').val();
+			let bd_no = "<%=boardVo.getBd_no()%>";
+			let updateReplyContent = $(target).text();
+			
+			replyUpdateTemplate(target, updateReplyNo, updateReplyContent);
+			
+			$(target).hide();
+			
+			$('#re_update_form').on('submit', function(e){
+				e.preventDefault();
+				let re_update_form = $(this);
+				let update_content = re_update_form[0].update_re_content.value;
+				
+				$.ajax({
+					url : "<%=request.getContextPath()%>/board/reply.do",
+					type : "post",
+					dataType : "json",
+					data : {
+						cmd : "update",
+						re_no : updateReplyNo,
+						re_content : update_content,
+						bd_no : bd_no
+					},
+					success : function(res){
+						if(res.result == 1){
+							$(target).text(update_content);
+							re_update_form.remove();
+							$(target).show();
+						}
+					},
+					error : function(err){
+						alert(err.status);
+					}
+				});
+			});
+		});
+		
+		//댓글삭제
+		$(document).on('click', '.reply-delete-btn', function(e){
+			if(confirm("삭제하시겠습니까?")){
+				let deleteReplyNo = $(this).parents('.icon-block').find('input[type=hidden]').val();
+				let target = $(this).closest('div .row');
+				$.ajax({
+					url : "<%=request.getContextPath()%>/board/reply.do",
+					method : "post",
+					dataType : "json",
+					data : {
+						cmd : "delete",
+						re_no : deleteReplyNo,
+						bd_no : "<%=boardVo.getBd_no()%>"
+					},
+					success : function(res){
+						if(res.result == 1){
+							alert("삭제성공!!");
+							target.remove();
+							
+						}
+					},
+					error : function(err){
+						alert(err.status);
+					}
+					
+				});
+			};
+			
+		});
+		
 	});
 </script>
 
@@ -156,26 +251,38 @@
 				</div>
 				<div class="card" id="re_container">
 				<% 
-					
+					String hidden = "hidden";
+				
 					for(ReplyVO reply : replyList){
+						if(vo != null && vo.getNick().equals(reply.getNick())){
+							hidden = "";
+						}
 						
 				%>
 					<div class="row">
-						<div class="col-md-4">
-							<div class="user-block">
+						<div class="col-md-4 d-flex">
+							<div class="user-block col-md-8">
 								<img class="img-circle img-bordered-sm" src="/profilePath/<%=reply.getPic_path() == null ? "/default/defaultprofile.png" : reply.getPic_path() %>" alt="user image"> 
-								<span class="username"> <a href="#"><%=reply.getNick() %></a> 
-									<a href="#" class="float-right btn-tool">
-										<i class="fas fa-times"></i>
-									</a>
+								<span class="username"> 
+									<a href="#"><%=reply.getNick() %></a> 
 								</span> 
 								<span class="description"><%=reply.getRe_wdt() %></span>
 							</div>
+							<div class="icon-block col-md-4 align-self-center">
+								<input type="hidden" value="<%=reply.getRe_no()%>">
+								<a href="#" class="float-right btn-tool reply-delete-btn">		
+									<i class="fas fa-times" <%=hidden%>></i>
+								</a>
+								<a href="#" class="float-right btn-tool reply-update-btn">		
+									<i class="fas fa-pen"></i>
+								</a>
+							</div>
 						</div>
-						<div class="col-md-8"><%=reply.getRe_content() %></div>
+						<div class="col-md-8 align-self-center">
+							<div class="reply-update"><%= reply.getRe_content() %></div>
+						</div>
 					</div>
 					<hr style="margin: 0">
-						
 				<% 
 					}
 				

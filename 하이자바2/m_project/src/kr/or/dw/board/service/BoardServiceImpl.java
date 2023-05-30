@@ -72,6 +72,16 @@ public class BoardServiceImpl implements IBoardService{
 		return dao.selectReplyList(bd_no);
 	}
 
+	@Override
+	public int deleteReply(int re_no) {
+		return dao.deleteReply(re_no);
+	}
+
+	@Override
+	public int updateReply(ReplyVO replyVo) {
+		return dao.updateReply(replyVo);
+	}
+
 
 		
 }
